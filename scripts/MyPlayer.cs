@@ -1,13 +1,22 @@
 using AO;
+using Assembly.scripts;
 
-public class MyPlayer : Player
+public partial class MyPlayer : Player
 {
     // Sync vars may be used inside components to replicate data from the server to clients.
     public SyncVar<int> Score = new();
+    public SyncVar<int> Resource = new();
 
+    // Player Upgrade
+    public SyncVar<int> Atk = new();
+    public SyncVar<float> Multiplier = new();
     public override void Start()
     {
-        
+        if (Network.IsServer)
+        {
+            Atk.Set(1);
+            Multiplier.Set(1f);
+        }
     }
 
     public override void Update()
@@ -18,6 +27,13 @@ public class MyPlayer : Player
         {
             // Setting a value on a sync var (from the server) will automatically replicate to all clients.
             Score.Set(Score + 1);
+            CallClient_UpdateClientUI(); // The server stub is not included in the IDE which is really annoying...
         }
+    }
+
+    [ClientRpc]
+    public void UpdateClientUI()
+    {
+        UIManager.Instance.UpdateUIEvent.Invoke(this);
     }
 }

@@ -1,11 +1,11 @@
 9
-4294967297
-171499009307668 1709618152529615600
+30064771074
+48155825467987 1709680615672902300
 {
-  "name": "Platform_Large_Yellow.png",
+  "name": "Platform_Large.png",
   "local_enabled": true,
   "local_position": {
-    "X": 0,
+    "X": 15,
     "Y": 0
   },
   "local_rotation": 0,
@@ -13,16 +13,16 @@
     "X": 3,
     "Y": 3
   },
-  "sibling_index": 2
+  "sibling_index": 4
 },
 {
   "cid": 1,
-  "aoid": "171499009484548:1709618152529665000",
+  "aoid": "48155826568831:1709680615673343400",
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "Platform_Large_Yellow.png",
-    "depth_offset": 3.5714471340179443,
+    "texture": "Platform_Large.png",
+    "depth_offset": 3.5000000000000000,
     "tint": {
       "X": 1,
       "Y": 1,
@@ -36,27 +36,27 @@
 },
 {
   "cid": 2,
-  "aoid": "172498241320037:1709618437698843300",
+  "aoid": "48302352078416:1709680674377502800",
   "component_type": "Internal_Component",
   "internal_component_type": "Polygon_Collider",
   "data": {
     "is_trigger": false,
     "points": [
       {
-        "X": -2.5385224819183350,
-        "Y": -2.9541001319885254
+        "X": -1,
+        "Y": -1
       },
       {
-        "X": -2.5650489330291748,
-        "Y": 3.2105202674865723
+        "X": -1,
+        "Y": 1
       },
       {
-        "X": 2.5473649501800537,
-        "Y": 3.2458891868591309
+        "X": 1,
+        "Y": 1
       },
       {
-        "X": 2.5385217666625977,
-        "Y": -2.9541003704071045
+        "X": 1,
+        "Y": -1
       }
     ],
     "density": 1,

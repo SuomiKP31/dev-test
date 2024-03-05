@@ -5,8 +5,8 @@
   "name": "Crate2.png",
   "local_enabled": true,
   "local_position": {
-    "X": 0.2029566764831543,
-    "Y": 0.2182621955871582
+    "X": -21.1792182922363281,
+    "Y": -0.2772898674011230
   },
   "local_rotation": 0,
   "local_scale": {

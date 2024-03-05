@@ -13,7 +13,7 @@
     "X": 20,
     "Y": 20
   },
-  "sibling_index": 2
+  "sibling_index": 3
 },
 {
   "cid": 1,

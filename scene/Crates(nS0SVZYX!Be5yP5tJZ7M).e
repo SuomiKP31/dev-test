@@ -5,16 +5,15 @@
   "name": "Crates",
   "local_enabled": true,
   "local_position": {
-    "X": 0.0132683720439672,
-    "Y": 1.7344731092453003
+    "X": 0.0398051142692566,
+    "Y": 5.2034192085266113
   },
   "local_rotation": 0,
   "local_scale": {
     "X": 1,
     "Y": 1
   },
-  "sibling_index": 0,
-  "parent": "171499009307668:1709618152529615600"
+  "sibling_index": 1
 },
 {
   "cid": 3,
