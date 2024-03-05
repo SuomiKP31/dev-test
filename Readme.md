@@ -1,5 +1,5 @@
 # Description
-This project is designed to test the candidates ability to make a game with All Out. We are looking for developers that can learn quickly with little assistance, and can think about what could make playing the game enjoyable.
+This project is designed to test the candidates ability to make a game with All Out. We are looking for developers that can learn quickly with minimal guidance, and can think about what could make playing the game enjoyable.
 Your goal is to create a simple "simulator" style game. The general game loop should be: players earn money (eg. by collecting a resource), and then spend the money to make earning money easier (eg. upgrading a tool required to collect a resource).
 
 # Requirements
