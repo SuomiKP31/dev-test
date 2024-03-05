@@ -18,6 +18,7 @@ Your goal is to create a simple "simulator" style game. The general game loop sh
 # Nice to haves
  - Try using our code-based UI system
  - Bring in and use some assets.
+   - Supported image format is PNG, simply drag them into the `res` folder and they will show up in the editor asset browser.
 
 # Notes
  - Placeholder art is totally acceptable
