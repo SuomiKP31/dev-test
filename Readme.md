@@ -9,6 +9,7 @@ Your goal is to create a simple "simulator" style game. The general game loop sh
      - The player then sells these resources to a shop
      - The player can then spend the money they've earned on upgrades. Upgrades could be "power", and "multiplier. Power would decrease the amount of E presses it takes to collect resources, and multiplier would increase the amount resources sell for.
  - Use the in-game leaderboard to show some kind of score for the players (in addition to any UI you choose to show)
+   - https://docs.allout.game/api/AO.Leaderboard
  - Use RPCs and/or SyncVars to sync things across the game
    - https://docs.allout.game/api/AO.SyncVar-1.html
    - https://docs.allout.game/api/AO.ClientRpc.html
