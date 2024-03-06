@@ -31,6 +31,12 @@ public class UIManager : System<UIManager>
         _scoreTxt = player.Score.ToString();
         _resourceTxt = player.Resource.ToString();
     }
+
+    public void ShowInteractableText(Rect interactRect, string txt)
+    {
+        Log.Info("Interact UI showing");
+        UI.Text(interactRect, txt, new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.Black, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
+    }
     
     public override void Update()
     {

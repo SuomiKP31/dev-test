@@ -33,35 +33,4 @@
     "wait_for_load": false,
     "wrap": false
   }
-},
-{
-  "cid": 2,
-  "aoid": "48342766226171:1709680690569076300",
-  "component_type": "Internal_Component",
-  "internal_component_type": "Polygon_Collider",
-  "data": {
-    "is_trigger": false,
-    "points": [
-      {
-        "X": -1,
-        "Y": -1
-      },
-      {
-        "X": -1,
-        "Y": 1
-      },
-      {
-        "X": 1,
-        "Y": 1
-      },
-      {
-        "X": 1,
-        "Y": -1
-      }
-    ],
-    "density": 1,
-    "friction": 0.2000000029802322,
-    "restitution": 0,
-    "restitution_threshold": 1
-  }
 }

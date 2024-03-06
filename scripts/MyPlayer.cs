@@ -17,6 +17,9 @@ public partial class MyPlayer : Player
             Atk.Set(1);
             Multiplier.Set(1f);
         }
+
+        /*var rg = Entity.AddComponent<Rigidbody>();
+        rg.Velocity = new Vector2(0, 1);*/
     }
 
     public override void Update()
@@ -27,13 +30,19 @@ public partial class MyPlayer : Player
         {
             // Setting a value on a sync var (from the server) will automatically replicate to all clients.
             Score.Set(Score + 1);
-            CallClient_UpdateClientUI(); // The server stub is not included in the IDE which is really annoying...
+            CallClient_UpdateClientUI(); // The server stub is not included in the IDE...
         }
     }
+    
+
+    #region RPCs
 
     [ClientRpc]
     public void UpdateClientUI()
     {
         UIManager.Instance.UpdateUIEvent.Invoke(this);
     }
+
+    #endregion
+    
 }
