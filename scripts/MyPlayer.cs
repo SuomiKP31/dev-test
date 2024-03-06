@@ -17,19 +17,21 @@ public partial class MyPlayer : Player
         {
             Atk.Set(1);
             Multiplier.Set(1f);
+            
         }
-        Leaderboard.RegisterSortCallback((Player[] players) => {
-            Array.Sort(players, (a, b) => {
-                MyPlayer p1 = (MyPlayer)a;
-                MyPlayer p2 = (MyPlayer)b;
-                int p1s = p1.Score;
-                int p2s = p2.Score;
-                return p2s.CompareTo(p1s);
-            });
-        });
 
         if (this.IsLocal)
         {
+            Leaderboard.RegisterSortCallback((Player[] players) => {
+                Array.Sort(players, (a, b) => {
+                    MyPlayer p1 = (MyPlayer)a;
+                    MyPlayer p2 = (MyPlayer)b;
+                    int p1s = p1.Score;
+                    int p2s = p2.Score;
+                    return p2s.CompareTo(p1s);
+                });
+            });
+            
             Leaderboard.Register($"Scores", (players, strings) =>
             {
                 for (int i = 0; i < players.Length; i++)
@@ -40,6 +42,9 @@ public partial class MyPlayer : Player
         }
         
         
+        
+
+
 
         /*var rg = Entity.AddComponent<Rigidbody>();
         rg.Velocity = new Vector2(0, 1);*/
