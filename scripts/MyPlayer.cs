@@ -9,19 +9,19 @@ public partial class MyPlayer : Player
     public SyncVar<int> Money = new();
 
     // Player Upgrade
-    public SyncVar<int> Atk = new();
-    public SyncVar<float> Multiplier = new();
+    public SyncVar<int> Atk = new(1);
+    public SyncVar<float> Multiplier = new(1);
     public override void Start()
     {
         if (Network.IsServer)
         {
             Atk.Set(1);
             Multiplier.Set(1f);
-            
         }
-
+        
         if (this.IsLocal)
         {
+            
             Leaderboard.RegisterSortCallback((Player[] players) => {
                 Array.Sort(players, (a, b) => {
                     MyPlayer p1 = (MyPlayer)a;
@@ -40,15 +40,20 @@ public partial class MyPlayer : Player
                 }
             });
         }
-        
-        
-        
-
+        else
+        {
+            Score.Set(Score);
+        }
 
 
         /*var rg = Entity.AddComponent<Rigidbody>();
         rg.Velocity = new Vector2(0, 1);*/
         CallClient_UpdateClientUI();
+    }
+
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
     }
 
     public override void Update()
@@ -83,7 +88,7 @@ public partial class MyPlayer : Player
     [ServerRpc]
     public void UpgradeAtk()
     {
-        if (Money > 5)
+        if (Money >= 5)
         {
             Atk.Set(Atk + 1);
             Money.Set(Money - 5);
@@ -99,7 +104,7 @@ public partial class MyPlayer : Player
     [ServerRpc]
     public void UpgradeMtp()
     {
-        if (Money > 5)
+        if (Money >= 5)
         {
             Multiplier.Set(Multiplier + 0.5f);
             Money.Set(Money - 5);

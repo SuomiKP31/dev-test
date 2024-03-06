@@ -22,8 +22,7 @@ public class Crate : Component
     protected float respawnTime = 10;
     
     protected Interactable interactable;
-
-    protected Vector2 originalPos;
+    protected Vector2 originalScale;
     /// <summary>
     /// If crate is not dead, it can be interacted.
     /// </summary>
@@ -36,7 +35,7 @@ public class Crate : Component
 
     /// <summary>
     /// Note: This is probably not the right way to do it. Damage and crate status is calculated locally
-    /// I've encountered a weird problem, where if I return a SyncVar<bool> in CanBeDamaged(), the interaction prompt does not pop up
+    /// I've encountered a weird problem, where if I return a SyncVar bool in CanBeDamaged(), the interaction prompt does not pop up
     /// Player SyncVars work just fine though, could be my oversight...
     /// </summary>
     /// <param name="p"></param>
@@ -49,6 +48,7 @@ public class Crate : Component
             return;
         }
         curHealth -= mp.Atk;
+        Entity.Scale *= new Vector2(.98f, .98f);
 
         if (curHealth <= 0)
         {
@@ -69,7 +69,8 @@ public class Crate : Component
         
         interactable.OnInteract = TakeDamage;
         interactable.CanUseCallback = CanBeDamaged;
-        
+
+        originalScale = Entity.Scale;
         //Network.Spawn(this.Entity); // Shouldn't need to call this when NetWorked is checked.
     }
     
@@ -86,6 +87,7 @@ public class Crate : Component
                 alive = true;
                 curHealth = health;
                 rdr.Tint = new Vector4(1,1,1,1);
+                Entity.Scale = originalScale;
                 respawnTimer = 0;
             }
         }

@@ -54,7 +54,7 @@
   "component_type": "Mono_Component",
   "mono_component_type": "Crate",
   "data": {
-    "health": 5,
+    "health": 8,
     "reward": 10,
     "respawnTime": 5
   }

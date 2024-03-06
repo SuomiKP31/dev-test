@@ -3,13 +3,13 @@ namespace Assembly.scripts;
 
 public class ResourceShop : Component
 {
-    protected Interactable interactable;
+    //protected Interactable interactable;
 
     public override void Start()
     {
-        interactable = Entity.GetComponent<Interactable>();
-        interactable.CanUseCallback = HaveAnyResources;
-        interactable.OnInteract = ExchangeResourceForPlayer;
+        //interactable = Entity.GetComponent<Interactable>();
+        //interactable.CanUseCallback = HaveAnyResources;
+        //interactable.OnInteract = ExchangeResourceForPlayer;
     }
 
     public bool HaveAnyResources(Player p)
@@ -35,6 +35,12 @@ public class ResourceShop : Component
         mp.Money.Set(mp.Money + (int) (multiplier*mp.Resource));
         mp.Resource.Set(0);
         mp.CallClient_UpdateClientUI(); 
+    }
+    
+    [ClientRpc]
+    public void srpc()
+    {
+        
     }
     
 }

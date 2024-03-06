@@ -87,16 +87,16 @@ public class UIManager : System<UIManager>
         {
             var topBarRect = UI.ScreenRect.CutTop(80);
             var currencyRect = topBarRect.CutLeft(225).Offset(550, -10);
-            UI.Image(currencyRect, null, Vector4.White);
-            UI.Text(currencyRect, $"Score: {_scoreTxt}", new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.Black, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
+            UI.Image(currencyRect, Assets.GetAsset<Texture>("$AO/new/main_menu/bottom_bar/button.png"), Vector4.White);
+            UI.Text(currencyRect, $"Score: {_scoreTxt}", new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.LightGreen, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
             // Draw resources
             var resourceRect = topBarRect.CutLeft(225).Offset(550, -10);
-            UI.Image(resourceRect, null, Vector4.White);
-            UI.Text(resourceRect, $"Material: {_resourceTxt}", new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.Black, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
+            UI.Image(resourceRect, Assets.GetAsset<Texture>("$AO/new/main_menu/bottom_bar/button.png"), Vector4.White);
+            UI.Text(resourceRect, $"Material: {_resourceTxt}", new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.Green, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
             // Draw money
             var moneyRect = topBarRect.CutLeft(225).Offset(550, -10);
-            UI.Image(moneyRect, null, Vector4.White);
-            UI.Text(moneyRect, $"Money: {_moneyTxt}", new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.Black, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
+            UI.Image(moneyRect, Assets.GetAsset<Texture>("$AO/new/main_menu/bottom_bar/button.png"), Vector4.White);
+            UI.Text(moneyRect, $"Money: {_moneyTxt}", new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.LightGreen, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
         }
         
         {
@@ -107,7 +107,7 @@ public class UIManager : System<UIManager>
             var sideBarRect = UI.ScreenRect.LeftCenterRect().Grow(110, 100, 110, 0).Offset(5, 0);
 
             var buttonRect = sideBarRect.CutTop(100);
-            if (UI.Button(buttonRect, $"+Atk: {_atkTxt}", new UI.ButtonSettings() { sprite = Assets.GetAsset<Texture>("$AO/white.png") }, new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 24, color = Vector4.Black }).clicked)
+            if (UI.Button(buttonRect, $"+Atk: {_atkTxt}", new UI.ButtonSettings() { sprite = Assets.GetAsset<Texture>("$AO/new/main_menu/bottom_bar/button.png") }, new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 24, color = Vector4.LightBlue }).clicked)
             {
                 var player = (MyPlayer)Network.LocalPlayer;
                 Log.Info("I'm upgrading a stat!");
@@ -118,7 +118,7 @@ public class UIManager : System<UIManager>
             sideBarRect.CutTop(10);
 
             var buttonRect2 = sideBarRect.CutTop(100);
-            if (UI.Button(buttonRect2, $"+Mtp: {_multiplierTxt}", new UI.ButtonSettings() { sprite = Assets.GetAsset<Texture>("$AO/white.png") }, new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 24, color = Vector4.Black }).clicked)
+            if (UI.Button(buttonRect2, $"+Mtp: {_multiplierTxt}", new UI.ButtonSettings() { sprite = Assets.GetAsset<Texture>("$AO/new/main_menu/bottom_bar/button.png") }, new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 24, color = Vector4.LightBlue }).clicked)
             {
                 var player = (MyPlayer)Network.LocalPlayer;
                 Log.Info("I'm upgrading another stat!");
