@@ -18,6 +18,28 @@ public partial class MyPlayer : Player
             Atk.Set(1);
             Multiplier.Set(1f);
         }
+        Leaderboard.RegisterSortCallback((Player[] players) => {
+            Array.Sort(players, (a, b) => {
+                MyPlayer p1 = (MyPlayer)a;
+                MyPlayer p2 = (MyPlayer)b;
+                int p1s = p1.Score;
+                int p2s = p2.Score;
+                return p2s.CompareTo(p1s);
+            });
+        });
+
+        if (this.IsLocal)
+        {
+            Leaderboard.Register($"Scores", (players, strings) =>
+            {
+                for (int i = 0; i < players.Length; i++)
+                {
+                    strings[i] = ((MyPlayer)players[i]).Score.ToString();
+                }
+            });
+        }
+        
+        
 
         /*var rg = Entity.AddComponent<Rigidbody>();
         rg.Velocity = new Vector2(0, 1);*/
@@ -39,16 +61,18 @@ public partial class MyPlayer : Player
 
     #region RPCs
 
+    // Client RPCs from UI Managers will be called from all clients.
     [ClientRpc]
     public void UpdateClientUI()
     {
         UIManager.Instance.UpdateUIEvent.Invoke(this);
+
     }
 
     [ClientRpc]
     public void SetPopup(string txt, float t)
     {
-        UIManager.Instance.PopupEvent.Invoke(txt, t);
+        UIManager.Instance.PopupEvent.Invoke(txt, t, this);
     }
 
     [ServerRpc]

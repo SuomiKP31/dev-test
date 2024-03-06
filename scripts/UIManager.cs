@@ -4,7 +4,7 @@ public class UIManager : System<UIManager>
 {
     // Update using event when you need to. This should avoid fetching references each frame which causes a slight overhead
     public Action<MyPlayer> UpdateUIEvent;
-    public Action<string, float> PopupEvent;
+    public Action<string, float, Player> PopupEvent;
 
     private string _scoreTxt;
     private string _resourceTxt;
@@ -32,7 +32,12 @@ public class UIManager : System<UIManager>
 
     public void UpdateUI(MyPlayer player)
     {
-        if (player == null)
+        if (player == null || Network.LocalPlayer == null)
+        {
+            return;
+        }
+
+        if (!player.IsLocal)
         {
             return;
         }
@@ -44,8 +49,12 @@ public class UIManager : System<UIManager>
     }
 
     
-    public void SetPopup(string txt, float time)
+    public void SetPopup(string txt, float time, Player player)
     {
+        if (!player.IsLocal)
+        {
+            return;
+        }
         _popupRemainingTime = time;
         _popupTxt = txt;
     }
@@ -86,8 +95,8 @@ public class UIManager : System<UIManager>
             UI.Text(resourceRect, $"Material: {_resourceTxt}", new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.Black, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
             // Draw money
             var moneyRect = topBarRect.CutLeft(225).Offset(550, -10);
-            UI.Image(resourceRect, null, Vector4.White);
-            UI.Text(resourceRect, $"Money: {_moneyTxt}", new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.Black, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
+            UI.Image(moneyRect, null, Vector4.White);
+            UI.Text(moneyRect, $"Money: {_moneyTxt}", new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.Black, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
         }
         
         {
