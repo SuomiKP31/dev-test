@@ -7,6 +7,8 @@ public class UIManager : System<UIManager>
 
     private string _scoreTxt;
     private string _resourceTxt;
+    private string _atkTxt;
+    private string _multiplierTxt;
 
     public override void Awake()
     {
@@ -30,6 +32,8 @@ public class UIManager : System<UIManager>
         }
         _scoreTxt = player.Score.ToString();
         _resourceTxt = player.Resource.ToString();
+        _atkTxt = player.Atk.ToString();
+        _multiplierTxt = player.Multiplier.ToString();
     }
 
     public override void Update()
@@ -56,18 +60,22 @@ public class UIManager : System<UIManager>
             var sideBarRect = UI.ScreenRect.LeftCenterRect().Grow(110, 100, 110, 0).Offset(5, 0);
 
             var buttonRect = sideBarRect.CutTop(100);
-            if (UI.Button(buttonRect, "Upgrade", new UI.ButtonSettings() { sprite = Assets.GetAsset<Texture>("$AO/white.png") }, new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 24, color = Vector4.Black }).clicked)
+            if (UI.Button(buttonRect, $"+Atk: {_atkTxt}", new UI.ButtonSettings() { sprite = Assets.GetAsset<Texture>("$AO/white.png") }, new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 24, color = Vector4.Black }).clicked)
             {
+                var player = (MyPlayer)Network.LocalPlayer;
                 Log.Info("I'm upgrading a stat!");
+                player.CallServer_UpgradeAtk();
             }
 
             // Spacing
             sideBarRect.CutTop(10);
 
             var buttonRect2 = sideBarRect.CutTop(100);
-            if (UI.Button(buttonRect2, "Upgrade2", new UI.ButtonSettings() { sprite = Assets.GetAsset<Texture>("$AO/white.png") }, new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 24, color = Vector4.Black }).clicked)
+            if (UI.Button(buttonRect2, $"+Mtp: {_multiplierTxt}", new UI.ButtonSettings() { sprite = Assets.GetAsset<Texture>("$AO/white.png") }, new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 24, color = Vector4.Black }).clicked)
             {
+                var player = (MyPlayer)Network.LocalPlayer;
                 Log.Info("I'm upgrading another stat!");
+                player.CallServer_UpgradeMtp();
             }
         }
     }

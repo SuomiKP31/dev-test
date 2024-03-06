@@ -20,6 +20,7 @@ public partial class MyPlayer : Player
 
         /*var rg = Entity.AddComponent<Rigidbody>();
         rg.Velocity = new Vector2(0, 1);*/
+        CallClient_UpdateClientUI();
     }
 
     public override void Update()
@@ -41,6 +42,20 @@ public partial class MyPlayer : Player
     public void UpdateClientUI()
     {
         UIManager.Instance.UpdateUIEvent.Invoke(this);
+    }
+
+    [ServerRpc]
+    public void UpgradeAtk()
+    {
+        Atk.Set(Atk + 1);
+        CallClient_UpdateClientUI();
+    }
+
+    [ServerRpc]
+    public void UpgradeMtp()
+    {
+        Multiplier.Set(Multiplier + 0.5f);
+        CallClient_UpdateClientUI();
     }
 
     #endregion
