@@ -10,10 +10,11 @@ public class Crate : Component
     [Serialized] protected int health;
     [Serialized] protected int reward;
 
-    protected int curHealth;
+    
     protected Sprite_Renderer rdr;
-
-    protected SyncVar<bool> alive = new();
+    
+    protected int curHealth;
+    protected bool alive;
 
     protected float respawnTimer = 0;
     
@@ -28,11 +29,7 @@ public class Crate : Component
     /// <returns></returns>
     public bool CanBeDamaged(Player p)
     {
-        if (!alive)
-        {
-            Log.Warn("Shouldn't happen!");
-        }
-        return (bool)alive; //&& Vector2.Distance(p.Entity.Position, Entity.Position) < 2f;
+        return alive; //&& Vector2.Distance(p.Entity.Position, Entity.Position) < 2f;
     }
 
     public void TakeDamage(Player p)
@@ -47,8 +44,9 @@ public class Crate : Component
 
         if (curHealth <= 0)
         {
-            alive.Set(false);
-            rdr.Enabled = false;
+            Log.Error("Crate Dead");
+            alive = false;
+            rdr.Tint = new Vector4(0,0,0,0);
             GiveReward(mp);
         }
     }
@@ -56,7 +54,7 @@ public class Crate : Component
 
     public override void Start()
     {
-        alive.Set(true);
+        alive = true;
         curHealth = health;
         rdr = Entity.GetComponent<Sprite_Renderer>();
         interactable = Entity.GetComponent<Interactable>();
@@ -77,8 +75,9 @@ public class Crate : Component
             if (respawnTimer > respawnTime)
             {
                 // Respawn
-                alive.Set(true);
-                rdr.Enabled = true;
+                alive = true;
+                curHealth = health;
+                rdr.Tint = new Vector4(1,1,1,1);
                 respawnTimer = 0;
             }
         }
