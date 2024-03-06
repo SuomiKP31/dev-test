@@ -6,6 +6,7 @@ public partial class MyPlayer : Player
     // Sync vars may be used inside components to replicate data from the server to clients.
     public SyncVar<int> Score = new();
     public SyncVar<int> Resource = new();
+    public SyncVar<int> Money = new();
 
     // Player Upgrade
     public SyncVar<int> Atk = new();
@@ -44,17 +45,40 @@ public partial class MyPlayer : Player
         UIManager.Instance.UpdateUIEvent.Invoke(this);
     }
 
+    [ClientRpc]
+    public void SetPopup(string txt, float t)
+    {
+        UIManager.Instance.PopupEvent.Invoke(txt, t);
+    }
+
     [ServerRpc]
     public void UpgradeAtk()
     {
-        Atk.Set(Atk + 1);
+        if (Money > 5)
+        {
+            Atk.Set(Atk + 1);
+            Money.Set(Money - 5);
+        }
+        else
+        {
+            CallClient_SetPopup("Need 5 bucks!", 3);
+        }
+        
         CallClient_UpdateClientUI();
     }
 
     [ServerRpc]
     public void UpgradeMtp()
     {
-        Multiplier.Set(Multiplier + 0.5f);
+        if (Money > 5)
+        {
+            Multiplier.Set(Multiplier + 0.5f);
+            Money.Set(Money - 5);
+        }
+        else
+        {
+            CallClient_SetPopup("Need 5 bucks!", 3);
+        }
         CallClient_UpdateClientUI();
     }
 

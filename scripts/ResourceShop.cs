@@ -31,9 +31,10 @@ public class ResourceShop : Component
             return;
         }
         float multiplier = mp.Multiplier;
-        int material = mp.Resource;
         mp.Score.Set(mp.Score + (int) (multiplier*mp.Resource));
+        mp.Money.Set(mp.Money + (int) (multiplier*mp.Resource));
         mp.Resource.Set(0);
         mp.CallClient_UpdateClientUI(); 
     }
+    
 }

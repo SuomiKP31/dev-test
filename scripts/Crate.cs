@@ -96,4 +96,5 @@ public class Crate : Component
         mp.Resource.Set(mp.Resource + reward);
         mp.CallClient_UpdateClientUI();
     }
+    
 }

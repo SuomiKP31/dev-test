@@ -4,26 +4,32 @@ public class UIManager : System<UIManager>
 {
     // Update using event when you need to. This should avoid fetching references each frame which causes a slight overhead
     public Action<MyPlayer> UpdateUIEvent;
+    public Action<string, float> PopupEvent;
 
     private string _scoreTxt;
     private string _resourceTxt;
     private string _atkTxt;
     private string _multiplierTxt;
+    private string _moneyTxt;
 
+    private string _popupTxt;
+    private float _popupRemainingTime;
     public override void Awake()
     {
-        UpdateUIEvent = delegate(MyPlayer player) {  };
-        UpdateUIEvent += UpdateUI;
+        PopupEvent = SetPopup;
+        UpdateUIEvent = UpdateUI;
     }
     
     public override void Start()
     {
         _scoreTxt = "0";
         _resourceTxt = "0";
+        _moneyTxt = "0";
 
         UpdateUI((MyPlayer)Network.LocalPlayer);
     }
     
+
     public void UpdateUI(MyPlayer player)
     {
         if (player == null)
@@ -34,10 +40,39 @@ public class UIManager : System<UIManager>
         _resourceTxt = player.Resource.ToString();
         _atkTxt = player.Atk.ToString();
         _multiplierTxt = player.Multiplier.ToString();
+        _moneyTxt = player.Money.ToString();
+    }
+
+    
+    public void SetPopup(string txt, float time)
+    {
+        _popupRemainingTime = time;
+        _popupTxt = txt;
     }
 
     public override void Update()
     {
+        // Update timers
+        {
+            if (_popupRemainingTime > 0)
+            {
+                //Log.Warn(_popupTxt);
+                _popupRemainingTime -= Time.DeltaTime;
+                // Draw the popup
+                {
+                    var centerRect = UI.ScreenRect.CenterRect().Grow(235).CutBottom(50);
+                    UI.Text(centerRect, $"{_popupTxt}", new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 24, color = Vector4.Black, 
+                        verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center,
+                        wordWrap = true, outline = true, outlineColor = Vector4.White
+                    });
+                }
+            }
+            else
+            {
+                _popupRemainingTime = 0;
+                _popupTxt = "";
+            }
+        }
         
         // Draw the score
         {
@@ -49,7 +84,10 @@ public class UIManager : System<UIManager>
             var resourceRect = topBarRect.CutLeft(225).Offset(550, -10);
             UI.Image(resourceRect, null, Vector4.White);
             UI.Text(resourceRect, $"Material: {_resourceTxt}", new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.Black, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
-            
+            // Draw money
+            var moneyRect = topBarRect.CutLeft(225).Offset(550, -10);
+            UI.Image(resourceRect, null, Vector4.White);
+            UI.Text(resourceRect, $"Money: {_moneyTxt}", new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.Black, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
         }
         
         {
@@ -77,6 +115,9 @@ public class UIManager : System<UIManager>
                 Log.Info("I'm upgrading another stat!");
                 player.CallServer_UpgradeMtp();
             }
+            
         }
+        
+        
     }
 }
