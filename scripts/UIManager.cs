@@ -32,12 +32,6 @@ public class UIManager : System<UIManager>
         _resourceTxt = player.Resource.ToString();
     }
 
-    public void ShowInteractableText(Rect interactRect, string txt)
-    {
-        Log.Info("Interact UI showing");
-        UI.Text(interactRect, txt, new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.Black, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
-    }
-    
     public override void Update()
     {
         
@@ -46,9 +40,17 @@ public class UIManager : System<UIManager>
             var topBarRect = UI.ScreenRect.CutTop(80);
             var currencyRect = topBarRect.CutLeft(225).Offset(550, -10);
             UI.Image(currencyRect, null, Vector4.White);
-            UI.Text(currencyRect, _scoreTxt, new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.Black, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
+            UI.Text(currencyRect, $"Score: {_scoreTxt}", new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.Black, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
+            // Draw resources
+            var resourceRect = topBarRect.CutLeft(225).Offset(550, -10);
+            UI.Image(resourceRect, null, Vector4.White);
+            UI.Text(resourceRect, $"Material: {_resourceTxt}", new UI.TextSettings() { font = UI.TextSettings.Font.BarlowBold, size = 40, color = Vector4.Black, verticalAlignment = UI.TextSettings.VerticalAlignment.Center, horizontalAlignment = UI.TextSettings.HorizontalAlignment.Center });
+            
         }
-
+        
+        {
+            
+        }
         // Draw the side buttons
         {
             var sideBarRect = UI.ScreenRect.LeftCenterRect().Grow(110, 100, 110, 0).Offset(5, 0);
